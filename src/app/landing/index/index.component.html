@@ -1,0 +1,95 @@
+<div appScrollspy [spiedTags]="['SECTION']" (sectionChange)="onSectionChange($event)">
+  <!-- Begin page -->
+  <div class="layout-wrapper landing">
+    <nav class="navbar navbar-expand-lg navbar-landing fixed-top" id="navbar" (window:scroll)="windowScroll()">
+      <div class="container">
+        <a class="navbar-brand text-success" routerLink="/home"> RealtyWise </a>
+        <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation" (click)="toggleMenu()">
+          <i class="mdi mdi-menu"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+            <li class="nav-item">
+              <a class="nav-link active" [ngClass]="{ active: currentSection === 'hero' }" [ngxScrollTo]="'#hero'"
+                href="javascript:void(0);">Home</a>
+            </li>
+
+
+            <li class="nav-item">
+              <a class="nav-link" [ngClass]="{ active: currentSection === 'team' }" [ngxScrollTo]="'#team'"
+                href="javascript:void(0);">Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [ngClass]="{ active: currentSection === 'contact' }" [ngxScrollTo]="'#contact'"
+                href="javascript:void(0);">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [ngClass]="{ active: currentSection === 'contact' }" routerLink="/home"
+                href="javascript:void(0);">Dashboard</a>
+            </li>
+          </ul>
+          <div class="" *ngIf="!showLoginButton">
+            <a routerLink="/auth/signin/basic" class="btn btn-primary">Sign in</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- end navbar -->
+
+    <!-- start hero section -->
+    <section class="section pb-0 hero-section" id="hero">
+      <div class="bg-overlay bg-overlay-pattern"></div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-sm-10">
+            <div class="text-center mt-lg-5 pt-5">
+              <h1 class="display-6 fw-semibold mb-3 lh-base">
+                The better way to own your Estate with
+                <span class="text-success">RealtyWise </span>
+              </h1>
+              <p class="lead text-muted lh-base">
+                RealtyWise is a Marketing Platform Real Estate
+
+              <div class="d-flex gap-2 justify-content-center mt-4">
+                <a routerLink="/auth/signup/basic" class="btn btn-primary">Get Started
+                  <i class="ri-arrow-right-line align-middle ms-1"></i></a>
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+      <div class="position-absolute start-0 end-0 bottom-0 hero-shape-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 1440 120">
+          <g mask='url("#SvgjsMask1003")' fill="none">
+            <path d="M 0,118 C 288,98.6 1152,40.4 1440,21L1440 140L0 140z"></path>
+          </g>
+        </svg>
+      </div>
+      <!-- end shape -->
+    </section>
+    <!-- end hero section -->
+
+
+
+    <app-work-process></app-work-process>
+    <app-team></app-team>
+    <app-contact></app-contact>
+   
+    <app-footer></app-footer>
+
+    <!--start back-to-top-->
+    <button (click)="topFunction()" class="btn btn-danger btn-icon landing-back-top" id="back-to-top">
+      <i class="ri-arrow-up-line"></i>
+    </button>
+    <!--end back-to-top-->
+  </div>
+</div>

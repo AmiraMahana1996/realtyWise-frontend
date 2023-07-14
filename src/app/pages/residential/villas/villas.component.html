@@ -1,0 +1,66 @@
+<!-- Start Breadcrumbs -->
+<!-- <app-breadcrumbs title="Sellers" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs> -->
+<!-- End Breadcrumbs -->
+
+
+
+<div class="row mt-4">
+  <div *ngFor="let data of properties; let i = index" class="col-xl-3 col-lg-6">
+
+    <div class="card ribbon-box right overflow-hidden">
+      <div class="card-body text-center p-4">
+        <div *ngIf="data.ternding" class="ribbon ribbon-info ribbon-shape trending-ribbon">
+          <i class="ri-flashlight-fill text-white align-bottom"></i>
+          <span class="trending-ribbon-text">Trending</span>
+        </div>
+        <img [src]="getSantizeUrl(data?.advertisingImageCover)" alt="" class="img-fluid" />
+        <h5 class="mb-1 mt-4">
+          <a routerLink="/ecommerce/seller-details" class="link-primary">{{
+            data.propertyType
+            }}</a>
+        </h5>
+        <p class="text-muted mb-4">{{ data.propertyType }}</p>
+        <div class="row justify-content-center">
+          <div class="col-lg-8"></div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-lg-6 border-end-dashed border-end">
+            <h5>{{ data.propertySize }}</h5>
+            <span class="text-muted">Property Size</span>
+          </div>
+          <div class="col-lg-6">
+            <h5>{{ data.price }}</h5>
+            <span class="text-muted">Property Price</span>
+          </div>
+        </div>
+        <div class="mt-4">
+          <a [routerLink]="['/home/residential/details', data._id.$oid]" class="btn btn-light w-100">View
+            Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end col-->
+</div>
+<!--end row-->
+
+<div class="px-3">
+  <div class="row justify-content-md-between align-items-md-center g-0 pagination">
+    <div class="col-sm-12 col-md-5">
+      <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+        Showing
+        <!-- {{ service.startIndex }} to {{ service.endIndex }} of
+          {{ service.totalRecords }} -->
+        entries
+      </div>
+    </div>
+    <!-- Pagination -->
+    <div class="col-sm-12 col-md-5">
+      <div class="text-md-right float-md-end pagination-rounded gridjs-pagination mb-3">
+        <ngb-pagination>
+        </ngb-pagination>
+      </div>
+    </div>
+    <!-- End Pagination -->
+  </div>
+</div>

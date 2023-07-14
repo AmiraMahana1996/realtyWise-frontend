@@ -1,0 +1,295 @@
+<!-- Start Breadcrumbs -->
+<!-- <app-breadcrumbs title="Sellers" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs> -->
+<!-- End Breadcrumbs -->
+
+
+
+<div class="row mt-4">
+    <div *ngFor="let data of properties; let i = index" class="col-xl-3 col-lg-6">
+
+        <div class="card ribbon-box right overflow-hidden">
+            <div class="card-body text-center p-4">
+                <div *ngIf="data.ternding" class="ribbon ribbon-info ribbon-shape trending-ribbon">
+                    <i class="ri-flashlight-fill text-white align-bottom"></i>
+                    <span class="trending-ribbon-text">Trending</span>
+                </div>
+                <img [src]="getSantizeUrl(data?.advertisingImageCover)" alt="" class="img-fluid" />
+                <h5 class="mb-1 mt-4">
+                    <a routerLink="/ecommerce/seller-details" class="link-primary">{{
+                        data.propertyType
+                        }}</a>
+                </h5>
+                <p class="text-muted mb-4">{{ data.propertyType }}</p>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8"></div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-6 border-end-dashed border-end">
+                        <h5>{{ data.propertySize }}</h5>
+                        <span class="text-muted">Property Size</span>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>{{ data.price }}</h5>
+                        <span class="text-muted">Property Price</span>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <button class="btn btn-primary  w-100" (click)="openModal(content,data._id)">Edit</button>
+                </div>
+                <div class="mt-2">
+                    <button (click)="delete(data._id)" class="btn btn-danger  w-100">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->
+<ng-template #content role="document" let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="addSellerLabel">Edit Property</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-content border-0 mt-3">
+        <ul ngbNav #customNav="ngbNav" [activeId]="1" class="nav nav-tabs nav-tabs-custom nav-success p-2 pb-0 bg-light"
+            role="tablist">
+            <li [ngbNavItem]="1" class="nav-item">
+                <a ngbNavLink class="nav-link" data-bs-toggle="tab" role="tab">
+                    Property Details
+                </a>
+                <ng-template ngbNavContent>
+                    <div class="tab-pane active" id="personalDetails" role="tabpanel">
+                        <form [formGroup]="EditForm" (ngSubmit)="EditProperty(EditForm)">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="fname" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="fname"
+                                            placeholder="Enter your firstname" formControlName="fname" />
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="lastnameInput" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastnameInput"
+                                            placeholder="Enter your lastname" formControlName="lname" />
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="contactnumberInput" class="form-label">Contact Number</label>
+                                        <input type="text" class="form-control" id="contactnumberInput"
+                                            placeholder="Enter your number" formControlName="contactNumber" />
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="phonenumberInput" class="form-label">Phone Number</label>
+                                        <input type="text" class="form-control" id="phonenumberInput"
+                                            placeholder="Enter your number" formControlName="phoneNumber" />
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="emailidInput" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="emailidInput"
+                                            placeholder="Enter your email" formControlName="emial" />
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="birthdayidInput" class="form-label">Date of Birth</label>
+                                        <input class="form-control flatpickr-input" type="text"
+                                            placeholder="Enter your date of birth" formControlName="DOB" />
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="cityidInput" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="cityidInput"
+                                            placeholder="Enter your city" formControlName="city" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="cityidInput" class="form-label">Zip Code</label>
+                                        <input type="text" class="form-control" id="cityidInput"
+                                            placeholder="Enter your city" formControlName="zip_code" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="choices-single-default" class="form-label">Property Type</label>
+                                        <select class="form-control" data-trigger name="choices-single-default"
+                                            id="choices-single-default" formControlName="propertyType">
+                                            <option value="">Select type</option>
+
+                                            <option value="apartment">Apartment</option>
+                                            <option value="villa">Villa</option>
+                                            <option value="castle">Castle</option>
+                                            <option value="chalets">Chatets</option>
+                                            <option value="factory">Factory</option>
+                                            <option value="store">Store</option>
+                                            <option value="administrative">Administrative</option>
+                                            <option value="shopping">Shopping Center</option>
+                                            <option value="farm">Farm</option>
+
+                                            <option value="orchards">Orchards</option>
+                                            <option value="land">Land</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="choices-single-default" class="form-label">Property Size</label>
+                                        <input type="text" class="form-control" id="cityidInput"
+                                            placeholder="Enter your city" formControlName="propertySize" />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="choices-single-default" class="form-label">Price</label>
+                                        <input type="text" class="form-control" id="cityidInput"
+                                            placeholder="Enter your city" formControlName="price" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="choices-single-default" class="form-label">Propert Address Line
+                                            1</label>
+                                        <input type="text" class="form-control" id="cityidInput"
+                                            placeholder="Enter your city" formControlName="propertyAddressLine1" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="choices-single-default" class="form-label">Propert Address Line
+                                            2</label>
+                                        <input type="text" class="form-control" id="cityidInput"
+                                            placeholder="Enter your city" formControlName="propertyAddressLine2" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="choices-single-default" class="form-label">Propert Address Line
+                                            3</label>
+                                        <input type="text" class="form-control" id="cityidInput"
+                                            placeholder="Enter your city" formControlName="propertyAddressLine3" />
+                                    </div>
+                                </div>
+                                <!-- <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="choices-single-default" class="form-label">Propert Address Line 3</label>
+                     
+                    </div>
+                  </div> -->
+                                <!--end col-->
+                                <input type="hidden" class="form-control" ng-value="userId" id="user"
+                                    placeholder="Enter your city" formControlName="user" />
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                            placeholder="Enter description" formControlName="desc"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="companylogoInput" class="form-label">Property Image</label>
+                                        <input type="file" class="form-control" id="images"
+                                            (change)="detectFiles($event)" multiple accept="image/x-png,image/jpeg" />
+                                        <!-- <div class="images-preview mt-2" *ngIf="images.length">
+                        <div formArrayName="images" *ngFor="let photo of images.controls; let i = index;">
+                          <div [formGroupName]="i">
+                            <img [src]="images.controls.url.value" class="card-img-top" alt="Image Preview">
+                          </div>
+                        </div>
+                      </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Advertising</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        placeholder="Enter description" formControlName="advertising"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="companylogoInput" class="form-label">Advertising Image Cover</label>
+                                    <input type="file" class="form-control" id="advertisingImageCoverN"
+                                        (change)="uploadCoverImage($event)" accept="image/x-png,image/jpeg"
+                                        #advertisingImageCoverN />
+                                    <!-- <div class="images-preview mt-2" *ngIf="images.length">
+                      <div formArrayName="images" *ngFor="let photo of images.controls; let i = index;">
+                        <div [formGroupName]="i">
+                          <img [src]="images.controls.url.value" class="card-img-top" alt="Image Preview">
+                        </div>
+                      </div>
+                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="hstack gap-2 justify-content-end">
+                                    <button class="btn btn-link link-success text-decoration-none fw-medium"
+                                        data-bs-dismiss="modal" (click)="modal.close('Close click')">
+                                        <i class="ri-close-line me-1 align-middle"></i> Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" (click)="modal.close('Close click')">
+                                        <i class="ri-save-3-line align-bottom me-1"></i> Save
+                                    </button>
+                                </div>
+                            </div>
+                            <!--end row-->
+
+                            <img src="" alt="">
+                        </form>
+                    </div>
+
+                </ng-template>
+            </li>
+
+
+        </ul>
+    </div>
+    <div class="modal-body">
+        <div class="tab-content">
+            <div [ngbNavOutlet]="customNav"></div>
+        </div>
+    </div>
+</ng-template><!--end modal-->
+<div class="px-3">
+    <div class="row justify-content-md-between align-items-md-center g-0 pagination">
+        <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                Showing
+                <!-- {{ service.startIndex }} to {{ service.endIndex }} of
+          {{ service.totalRecords }} -->
+                entries
+            </div>
+        </div>
+        <!-- Pagination -->
+        <div class="col-sm-12 col-md-5">
+            <div class="text-md-right float-md-end pagination-rounded gridjs-pagination mb-3">
+                <ngb-pagination>
+                </ngb-pagination>
+            </div>
+        </div>
+        <!-- End Pagination -->
+    </div>
+</div>

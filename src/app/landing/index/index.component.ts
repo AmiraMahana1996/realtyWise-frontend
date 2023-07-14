@@ -1,0 +1,80 @@
+import { Component, OnInit } from "@angular/core";
+import { CookieService } from "ngx-cookie-service";
+
+@Component({
+  selector: "app-index",
+  templateUrl: "./index.component.html",
+  styleUrls: ["./index.component.scss"],
+})
+
+/**
+ * Index Component
+ */
+export class IndexComponent implements OnInit {
+  isLogin: any;
+  showLoginButton: boolean = true;
+  currentSection = "home";
+  showNavigationArrows: any;
+  showNavigationIndicators: any;
+
+  constructor(private cookieService: CookieService) {}
+
+  ngOnInit(): void {
+    this.isLogin = this.cookieService.get("loggedin");
+
+    if (this.isLogin == "True") {
+
+      this.showLoginButton = true;
+    } else {
+      this.showLoginButton = false;
+    }
+  }
+
+  /**
+   * Window scroll method
+   */
+  windowScroll() {
+    const navbar = document.getElementById("navbar");
+    if (
+      document.body.scrollTop > 40 ||
+      document.documentElement.scrollTop > 40
+    ) {
+      navbar?.classList.add("is-sticky");
+    } else {
+      navbar?.classList.remove("is-sticky");
+    }
+
+    // Top Btn Set
+    if (
+      document.body.scrollTop > 100 ||
+      document.documentElement.scrollTop > 100
+    ) {
+      (document.getElementById("back-to-top") as HTMLElement).style.display =
+        "block";
+    } else {
+      (document.getElementById("back-to-top") as HTMLElement).style.display =
+        "none";
+    }
+  }
+
+  /**
+   * Section changed method
+   * @param sectionId specify the current sectionID
+   */
+  onSectionChange(sectionId: string) {
+    this.currentSection = sectionId;
+  }
+
+  /**
+   * Toggle navbar
+   */
+  toggleMenu() {
+    document.getElementById("navbarSupportedContent")?.classList.toggle("show");
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+}
